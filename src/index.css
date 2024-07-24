@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active {
+    color: #3B82F6;
+    border-bottom: 2px solid #3B82F6;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+@keyframes statusAnim {
+    0% {
+        transform: translateX(25%);
+        opacity: 0;
+    }
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}
+.statusAnim {
+    animation: statusAnim 0.2s ease-out;
+}
