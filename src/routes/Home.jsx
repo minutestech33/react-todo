@@ -51,7 +51,7 @@ function Home() {
   return (
     <div className='w-full h-screen bg-gray-200'>
       <div className='max-w-[800px] m-auto max-lg:px-3'>
-        <div className='h-[13vh] w-full flex items-center max-md:items-start max-md:pt-3 max-md:h-[12vh]'>
+        <div className='h-[13vh] w-full flex items-center max-md:items-start max-md:pt-3 max-md:h-[10vh]'>
           <div className='w-full flex gap-2'>
             <input onKeyDown={(e) => {
               if (e.key === 'Enter') {
@@ -62,7 +62,7 @@ function Home() {
             <button className='w-[90px] bg-blue-500 text-sm font-medium rounded-md text-white hover:cursor-pointer active:scale-90 transition-all flex-shrink-0'>Sort</button>
           </div>
         </div>
-        <div className='h-[6vh] w-full flex gap-3 border-b border-gray-300 max-md:overflow-x-scroll'>
+        <div className='h-[6vh] max-md:h-[5vh] w-full flex gap-3 border-b border-gray-300 max-md:overflow-x-scroll'>
           {
             routes.map((item, index) => {
               return (
@@ -71,7 +71,7 @@ function Home() {
             })
           }
         </div>
-        <div className='h-[81vh] w-full overflow-y-scroll pt-5 pb-6 max-md:h-[82vh]'>
+        <div className='h-[81vh] w-full overflow-y-scroll pt-5 pb-6 max-md:h-[85vh]'>
           <Outlet />
         </div>
       </div>
