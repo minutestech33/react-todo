@@ -9,8 +9,7 @@ import { useTaskId } from '../hooks/useTaskId'
 function Home() {
   const [task, setTask] = useState("")
   const { tasks, setTasks } = useContext(DataContext)
-  const location = useLocation()
-  const cpath = location.pathname;
+  const cpath = useLocation().pathname
 
   const taskId = useTaskId()
 
@@ -19,19 +18,17 @@ function Home() {
 
     const handleTaskInsertation = (status) => {
       setTask("");
-      return setTasks(prev => [...prev, {
+      if (!['/new', '/running', '/completed', '/canceled', '/starred'].includes(cpath)) {
+        localStorage.setItem(status, 'added');
+      }
+      return setTasks(prev => [{
         id: taskId,
         title: task,
         status
-      }])
+      }, ...prev])
     }
+    if (['/', '/new', '/settings'].includes(cpath)) handleTaskInsertation('New')
     switch (cpath) {
-      case '/':
-        handleTaskInsertation('New')
-        break;
-      case '/new':
-        handleTaskInsertation('New')
-        break;
       case '/running':
         handleTaskInsertation('Running')
         break;

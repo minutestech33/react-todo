@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { DataContext } from '../context/DataContext'
+import { useLocation } from 'react-router-dom'
 
 function Task({ index, id, title, status }) {
   const [isShown, setIsShown] = useState(false)
   const { tasks, setTasks } = useContext(DataContext)
+  const cpath = useLocation().pathname
   const statusShow = {
     new: 'text-blue-500 bg-blue-50 border-blue-400',
     running: 'text-orange-500 bg-orange-50 border-orange-400',
@@ -20,9 +22,12 @@ function Task({ index, id, title, status }) {
   ]
 
   const changeStatus = (cstatus) => {
+    if (cstatus !== status) {
+      localStorage.setItem(cstatus, 'added');
+    }
     const csTask = tasks.map(item => {
       if (item.id === id) {
-        return {...item, status: cstatus};
+        return { ...item, status: cstatus };
       }
       return item;
     })
@@ -33,8 +38,8 @@ function Task({ index, id, title, status }) {
   return (
     <div className={`w-full flex items-center justify-between bg-white p-4 ${index === 0 && 'rounded-t-md'} ${index === tasks.filter(item => item.status === status).length - 1 && 'rounded-b-md'} hover:cursor-pointer`}>
       <div className='flex items-center gap-3'>
-        <div className='h-4 flex-shrink-0 w-4 rounded-full border border-gray-700 active:scale-90 transition-all'></div>
-        <p className='text-md font-medium text-gray-700 text-justify'>{title}</p>
+        <div onClick={() => changeStatus('Completed')} className={`h-4 flex-shrink-0 w-4 rounded-full border ${status === 'Completed' ? 'border-gray-400' : 'border-gray-700 active:scale-90 transition-all'}`}></div>
+        <p className={`text-md font-medium ${status === 'Completed' ? 'text-gray-400 line-through' : 'text-gray-700'} text-justify`}>{title}</p>
       </div>
       <div className='flex-shrink-0 flex'>
         {
